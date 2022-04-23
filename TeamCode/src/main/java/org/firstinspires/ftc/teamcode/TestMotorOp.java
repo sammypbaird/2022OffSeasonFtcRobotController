@@ -28,8 +28,8 @@ public class TestMotorOp extends LinearOpMode  {
 
         //set the direction
         leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Status", "Initialized");
@@ -44,11 +44,10 @@ public class TestMotorOp extends LinearOpMode  {
         while (opModeIsActive()) {
             power = 0.5;
 
-            
-            leftBackDrive.setPower(power);
+            leftBackDrive.setPower(-power);
             leftFrontDrive.setPower(power);
             rightBackDrive.setPower(power);
-            rightFrontDrive.setPower(power);
+            rightFrontDrive.setPower(-power);
 
             telemetry.addData("Target Power", power);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
