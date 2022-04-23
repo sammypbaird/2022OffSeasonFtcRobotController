@@ -41,36 +41,52 @@ public class GamePadSimpleOp extends LinearOpMode  {
         // run until the end of the match (driver presses STOP)
         double power = 0;
         while (opModeIsActive()) {
-            power = 0.5;
 
-            String buttonMessage = "None";
+            //turn on turbo mode while "A" button is pressed
+            if (gamepad1.a)
+                power=1;
+            else
+                power=0.5;
+
+            //zero point rotation if right joystick is engaged left or right
+            if (gamepad1.right_stick_x > 0.5)
+            {
+                leftBackDrive.setPower(-power);
+                leftFrontDrive.setPower(-power);
+                rightBackDrive.setPower(power);
+                rightFrontDrive.setPower(power);
+            }
+            else if (gamepad1.right_stick_x < -0.5) {
+                leftBackDrive.setPower(power);
+                leftFrontDrive.setPower(power);
+                rightBackDrive.setPower(-power);
+                rightFrontDrive.setPower(-power);
+            }
+
+            //move or strafe if dpad is engaged
             if (gamepad1.dpad_up) {
                 leftBackDrive.setPower(power);
                 leftFrontDrive.setPower(power);
                 rightBackDrive.setPower(power);
                 rightFrontDrive.setPower(power);
-                buttonMessage = "Up";
             }
             else if (gamepad1.dpad_down) {
                 leftBackDrive.setPower(-power);
                 leftFrontDrive.setPower(-power);
                 rightBackDrive.setPower(-power);
                 rightFrontDrive.setPower(-power);
-                buttonMessage = "Down";
             }
             else if (gamepad1.dpad_left) {
                 leftBackDrive.setPower(power);
                 leftFrontDrive.setPower(-power);
                 rightBackDrive.setPower(-power);
                 rightFrontDrive.setPower(power);
-                buttonMessage = "Left";
             }
             else if (gamepad1.dpad_right) {
                 leftBackDrive.setPower(-power);
                 leftFrontDrive.setPower(power);
                 rightBackDrive.setPower(power);
                 rightFrontDrive.setPower(-power);
-                buttonMessage = "Right";
             }
             else
             {
@@ -78,11 +94,9 @@ public class GamePadSimpleOp extends LinearOpMode  {
                 leftFrontDrive.setPower(0);
                 rightBackDrive.setPower(0);
                 rightFrontDrive.setPower(0);
-                buttonMessage = "None";
             }
 
             telemetry.addData("Target Power", power);
-            telemetry.addData("Button", buttonMessage);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
