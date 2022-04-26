@@ -70,22 +70,13 @@ public class BasicOmniOpMode extends LinearOpMode {
                 rightBackPower  /= max;
             }
 
-            // This is test code:
-            //
-            // Uncomment the following code to test your motor directions.
-            // Each button should make the corresponding motor run FORWARD.
-            //   1) First get all the motors to take to correct positions on the robot
-            //      by adjusting your Robot Configuration if necessary.
-            //   2) Then make sure they run in the correct direction by modifying the
-            //      the setDirection() calls above.
-            // Once the correct motors move in the correct direction re-comment this code.
-
-            /*
-            leftFrontPower  = gamepad1.x ? 1.0 : 0.0;  // X gamepad
-            leftBackPower   = gamepad1.a ? 1.0 : 0.0;  // A gamepad
-            rightFrontPower = gamepad1.y ? 1.0 : 0.0;  // Y gamepad
-            rightBackPower  = gamepad1.b ? 1.0 : 0.0;  // B gamepad
-            */
+            //decrease overall power by half if "a" is not pressed
+            if (!gamepad1.a) {
+                leftFrontPower /= 2.0;
+                rightFrontPower /= 2.0;
+                leftBackPower /= 2.0;
+                rightBackPower /= 2.0;
+            }
 
             // Send calculated power to wheels
             leftFrontDrive.setPower(leftFrontPower);
