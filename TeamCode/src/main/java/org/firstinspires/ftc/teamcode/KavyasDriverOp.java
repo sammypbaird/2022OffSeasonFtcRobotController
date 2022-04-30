@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //0. Name the TeleOp
-@TeleOp(name="", group="")
+@TeleOp(name="Kavya's Driver", group="Linear Opmode")
 public class KavyasDriverOp extends LinearOpMode  {
 
     //adding a comment
