@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 //0. Name the TeleOp
 @TeleOp(name="", group="")
-public class GamePadExerciseOp extends LinearOpMode  {
+public class KavyasDriverOp extends LinearOpMode  {
 
     //adding a comment
     private ElapsedTime runtime = new ElapsedTime();
@@ -42,6 +42,7 @@ public class GamePadExerciseOp extends LinearOpMode  {
         // run until the end of the match (driver presses STOP)
         double power = 0;
         while (opModeIsActive()) {
+            power = 0.5;
 
             //8. when "A" button is pressed, turn on turbo mode (power is max)
             //gamepad1.a
@@ -49,25 +50,37 @@ public class GamePadExerciseOp extends LinearOpMode  {
             //9. when "A" button is not pressed, set power to 0.5
             //gamepad1.a
 
-            //6. if right joystick is engaged right, do zero point turn right
-            //gamepad1.right_stick_x
-
-            //7. if right joystick is engaged left, do zero point turn left
-            //gamepad1.right_stick_x
-
-            //1. if dpad "UP" is pressed, go forward
-            //gamepad1.dpad_up
-
-            //2. else if dpad "DOWN" is pressed, go backwards
-            //gamepad1.dpad_down
-
-            //3. else if dpad "LEFT" is pressed, strafe left
-            //gamepad1.dpad_left
-
-            //4. else if dpad "RIGHT" is pressed, strafe right
-            //gamepad1.dpad_left
-
-            //5. otherwise, set power on all motors to zero
+            if (gamepad1.right_stick_x >= 0.3 || gamepad1.right_stick_x <= -0.3) {
+                leftFrontDrive.setPower(gamepad1.right_stick_x);
+                rightFrontDrive.setPower(-gamepad1.right_stick_x);
+                leftBackDrive.setPower(gamepad1.right_stick_x);
+                rightBackDrive.setPower(-gamepad1.right_stick_x);
+            } else if (gamepad1.dpad_up) {
+                leftFrontDrive.setPower(power);
+                rightFrontDrive.setPower(power);
+                leftBackDrive.setPower(power);
+                rightBackDrive.setPower(power);
+            } else if (gamepad1.dpad_down) {
+                leftFrontDrive.setPower(-power);
+                rightFrontDrive.setPower(-power);
+                leftBackDrive.setPower(-power);
+                rightBackDrive.setPower(-power);
+            } else if (gamepad1.dpad_left) {
+                rightFrontDrive.setPower(power);
+                leftFrontDrive.setPower(-power);
+                rightBackDrive.setPower(-power);
+                leftBackDrive.setPower(power);
+            } else if (gamepad1.dpad_right) {
+                rightFrontDrive.setPower(-power);
+                leftFrontDrive.setPower(power);
+                rightBackDrive.setPower(power);
+                leftBackDrive.setPower(-power);
+            } else {
+                leftFrontDrive.setPower(0);
+                rightFrontDrive.setPower(0);
+                leftBackDrive.setPower(0);
+                rightBackDrive.setPower(0);
+            }
 
             telemetry.addData("Target Power", power);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
