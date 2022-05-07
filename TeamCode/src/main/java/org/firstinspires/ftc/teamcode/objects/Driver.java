@@ -71,18 +71,21 @@ public class Driver {
 
     /**
      * time in milliseconds
-     * @param time
      */
-    public void rotateLeft(double time){
+    public void rotateRight(long time){
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() < start + time) {
-            setPower(power,-power,-power,power);
+            setPower(power,-power,power,-power);
         }
     }
-    public void rotateRight(double time){
+
+    /**
+     * time in milliseconds
+     */
+    public void rotateLeft(long time){
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() < start + time) {
-            setPower(-power,power,power,-power);
+            setPower(-power,power,-power,power);
         }
     }
 }
