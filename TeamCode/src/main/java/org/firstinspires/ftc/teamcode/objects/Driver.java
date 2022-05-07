@@ -51,6 +51,34 @@ public class Driver {
         motorsStop();
     }
 
+    public void strafeRightForDurationMs(long duration)
+    {
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() < start + duration) {
+            motorsStrafeRight();
+        }
+    }
+
+    public void strafeLeftForDurationMs(long duration)
+    {
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() < start + duration) {
+            motorsStrafeLeft();
+        }
+    }
+
+    //Creating method to strafe right
+    private void motorsStrafeRight()
+    {
+        setPower(power, -power, -power, power);
+    }
+
+    //Creating method to strafe left
+    private void motorsStrafeLeft()
+    {
+        setPower(-power, power, -power, power);
+    }
+
     private void motorsForward()
     {
         setPower(power, power, power, power);
