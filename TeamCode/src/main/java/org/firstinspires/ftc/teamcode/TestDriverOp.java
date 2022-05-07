@@ -29,8 +29,8 @@ public class TestDriverOp extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            driver.rotate(0,2000);
-            driver.rotate(1,2000);
+            driver.rotateLeft(2000);
+            driver.rotateRight(2000);
             driver.driveForwardForDurationMs(2000);
 
             // Show the elapsed game time and wheel power.

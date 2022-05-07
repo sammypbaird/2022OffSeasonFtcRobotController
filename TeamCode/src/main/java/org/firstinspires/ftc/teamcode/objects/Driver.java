@@ -66,22 +66,19 @@ public class Driver {
     }
 
     /**
-     * Direction: 0,left. 1,right. time in milliseconds
-     * @param dir
+     * time in milliseconds
      * @param time
      */
-    public void rotate(double dir, double time){
-        if(dir == 0.0){
-            long start = System.currentTimeMillis();
-            while (System.currentTimeMillis() < start + time) {
-                setPower(power,-power,-power,power);
-            }
+    public void rotateLeft(double time){
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() < start + time) {
+            setPower(power,-power,-power,power);
         }
-        else if(dir == 1.0){
-            long start = System.currentTimeMillis();
-            while (System.currentTimeMillis() < start + time) {
-                setPower(-power,power,power,-power);
-            }
+    }
+    public void rotateRight(double time){
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() < start + time) {
+            setPower(-power,power,power,-power);
         }
     }
 }
