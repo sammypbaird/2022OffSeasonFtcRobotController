@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.objects;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+
 public class Driver {
 
     private DcMotor leftFrontDrive = null;
@@ -32,6 +33,9 @@ public class Driver {
         motorsStop();
     }
 
+    /**
+     * Power must be between -1.0 and 1.0
+     */
     public void setPower(double p)
     {
         this.power = p;
