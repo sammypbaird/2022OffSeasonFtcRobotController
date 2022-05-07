@@ -68,4 +68,21 @@ public class Driver {
         leftBackDrive.setPower(leftBack);
         rightBackDrive.setPower(rightBack);
     }
+
+    /**
+     * time in milliseconds
+     * @param time
+     */
+    public void rotateLeft(double time){
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() < start + time) {
+            setPower(power,-power,-power,power);
+        }
+    }
+    public void rotateRight(double time){
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() < start + time) {
+            setPower(-power,power,power,-power);
+        }
+    }
 }
