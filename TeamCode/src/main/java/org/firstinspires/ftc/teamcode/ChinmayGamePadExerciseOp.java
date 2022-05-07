@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //0. Name the TeleOp
-@TeleOp(name="", group="")
+@TeleOp(name="Chinmay's Driver", group="")
 public class ChinmayGamePadExerciseOp extends LinearOpMode  {
 
     //adding a comment
