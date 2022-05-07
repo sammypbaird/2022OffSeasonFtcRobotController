@@ -3,17 +3,19 @@ package org.firstinspires.ftc.teamcode.objects;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+/*
+Created this so I can modify without conflict  issues, and to make contriversial changes.
+ */
+public class chinmaydriver {
 
-public class Driver {
+    public DcMotor leftFrontDrive = null;
+    public DcMotor leftBackDrive = null;
+    public DcMotor rightFrontDrive = null;
+    public DcMotor rightBackDrive = null;
 
-    private DcMotor leftFrontDrive = null;
-    private DcMotor leftBackDrive = null;
-    private DcMotor rightFrontDrive = null;
-    private DcMotor rightBackDrive = null;
+    public double power = 0;
 
-    private double power = 0;
-
-    public Driver(HardwareMap hardwareMap)
+    public chinmaydriver(HardwareMap hardwareMap)
     {
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
@@ -116,5 +118,17 @@ public class Driver {
         while (System.currentTimeMillis() < start + time) {
             setPower(-power, power, -power, power);
         }
+    }
+    public void leftFrontDrivesetPower(double power){
+        leftFrontDrive.setPower(power);
+    }
+    public void rightFrontDrivesetPower(double power){
+        rightFrontDrive.setPower(power);
+    }
+    public void leftBackDrivesetPower(double power){
+        leftBackDrive.setPower(power);
+    }
+    public void rightBackDrivesetPower(double power){
+        rightBackDrive.setPower(power);
     }
 }
