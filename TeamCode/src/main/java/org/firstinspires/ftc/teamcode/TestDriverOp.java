@@ -31,6 +31,8 @@ public class TestDriverOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             driver.driveForwardForDurationMs(2000);
+            driver.strafeLeftForDurationMs(2000);
+            driver.strafeRightForDurationMs(2000);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
