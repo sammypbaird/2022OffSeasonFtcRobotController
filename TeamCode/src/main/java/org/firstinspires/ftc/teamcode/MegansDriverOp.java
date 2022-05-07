@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Sam's Driver", group="Linear Opmode")
+@TeleOp(name="Megan's Driver", group="Linear Opmode")
 public class MegansDriverOp extends LinearOpMode  {
 
     //adding a comment
