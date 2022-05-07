@@ -70,7 +70,8 @@ public class Driver {
     }
 
     /**
-     * time in milliseconds
+     * Function for rotating right. <br>
+     * Time in milliseconds.
      */
     public void rotateRight(long time){
         long start = System.currentTimeMillis();
@@ -78,9 +79,9 @@ public class Driver {
             setPower(power,-power,power,-power);
         }
     }
-
     /**
-     * time in milliseconds
+     * Function for rotating left. <br>
+     * Time in milliseconds
      */
     public void rotateLeft(long time){
         long start = System.currentTimeMillis();
