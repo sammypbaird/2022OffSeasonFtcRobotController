@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.sandbox.chinmay;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //0. Name the TeleOp
+@Disabled
 @TeleOp(name="Chinmay's Driver", group="")
 public class ChinmayGamePadExerciseOp extends LinearOpMode  {
 

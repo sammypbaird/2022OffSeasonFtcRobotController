@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.sandbox.kavya;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //0. Name the TeleOp
+@Disabled
 @TeleOp(name="Kavya's Driver", group="Linear Opmode")
 public class KavyasDriverOp extends LinearOpMode  {
 
