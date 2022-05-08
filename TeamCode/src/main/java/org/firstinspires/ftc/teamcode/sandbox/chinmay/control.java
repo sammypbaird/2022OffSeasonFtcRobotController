@@ -2,16 +2,10 @@
 OmmniOpMode converted into a class
  */
 
-package org.firstinspires.ftc.teamcode.objects;
+package org.firstinspires.ftc.teamcode.sandbox.chinmay;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 
-import org.firstinspires.ftc.teamcode.objects.chinmaydriver;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 public class control{
     public control(){
         double test = 0.0;

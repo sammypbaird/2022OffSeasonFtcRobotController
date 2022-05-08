@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.opsmode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Test Motor", group="Linear Opmode")
+@Disabled
 public class TestMotorOp extends LinearOpMode  {
 
     //adding a comment

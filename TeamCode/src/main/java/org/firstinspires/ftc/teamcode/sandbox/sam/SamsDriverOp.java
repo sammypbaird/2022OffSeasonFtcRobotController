@@ -1,14 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.sandbox.sam;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//0. Name the TeleOp
-@TeleOp(name="Kavya's Driver", group="Linear Opmode")
-public class KavyasDriverOp extends LinearOpMode  {
+@TeleOp(name="Sam's Driver", group="Linear Opmode")
+@Disabled
+public class SamsDriverOp extends LinearOpMode  {
 
     //adding a comment
     private ElapsedTime runtime = new ElapsedTime();
@@ -42,44 +43,59 @@ public class KavyasDriverOp extends LinearOpMode  {
         // run until the end of the match (driver presses STOP)
         double power = 0;
         while (opModeIsActive()) {
-            power = 0.5;
 
-            //8. when "A" button is pressed, turn on turbo mode (power is max)
-            //gamepad1.a
+            //turn on turbo mode while "A" button is pressed
+            if (gamepad1.a)
+                power=1;
+            else
+                power=0.5;
 
-            //9. when "A" button is not pressed, set power to 0.5
-            //gamepad1.a
-
-            if (gamepad1.right_stick_x >= 0.3 || gamepad1.right_stick_x <= -0.3) {
-                leftFrontDrive.setPower(gamepad1.right_stick_x);
-                rightFrontDrive.setPower(-gamepad1.right_stick_x);
-                leftBackDrive.setPower(gamepad1.right_stick_x);
-                rightBackDrive.setPower(-gamepad1.right_stick_x);
-            } else if (gamepad1.dpad_up) {
-                leftFrontDrive.setPower(power);
-                rightFrontDrive.setPower(power);
-                leftBackDrive.setPower(power);
-                rightBackDrive.setPower(power);
-            } else if (gamepad1.dpad_down) {
-                leftFrontDrive.setPower(-power);
-                rightFrontDrive.setPower(-power);
+            //zero point rotation if right joystick is engaged left or right
+            if (gamepad1.right_stick_x > 0.5)
+            {
                 leftBackDrive.setPower(-power);
-                rightBackDrive.setPower(-power);
-            } else if (gamepad1.dpad_left) {
-                rightFrontDrive.setPower(power);
                 leftFrontDrive.setPower(-power);
-                rightBackDrive.setPower(-power);
+                rightBackDrive.setPower(power);
+                rightFrontDrive.setPower(power);
+            }
+            else if (gamepad1.right_stick_x < -0.5) {
                 leftBackDrive.setPower(power);
-            } else if (gamepad1.dpad_right) {
+                leftFrontDrive.setPower(power);
+                rightBackDrive.setPower(-power);
                 rightFrontDrive.setPower(-power);
+            }
+
+            //move or strafe if dpad is engaged
+            if (gamepad1.dpad_up) {
+                leftBackDrive.setPower(power);
                 leftFrontDrive.setPower(power);
                 rightBackDrive.setPower(power);
+                rightFrontDrive.setPower(power);
+            }
+            else if (gamepad1.dpad_down) {
                 leftBackDrive.setPower(-power);
-            } else {
-                leftFrontDrive.setPower(0);
-                rightFrontDrive.setPower(0);
+                leftFrontDrive.setPower(-power);
+                rightBackDrive.setPower(-power);
+                rightFrontDrive.setPower(-power);
+            }
+            else if (gamepad1.dpad_left) {
+                leftBackDrive.setPower(power);
+                leftFrontDrive.setPower(-power);
+                rightBackDrive.setPower(-power);
+                rightFrontDrive.setPower(power);
+            }
+            else if (gamepad1.dpad_right) {
+                leftBackDrive.setPower(-power);
+                leftFrontDrive.setPower(power);
+                rightBackDrive.setPower(power);
+                rightFrontDrive.setPower(-power);
+            }
+            else
+            {
                 leftBackDrive.setPower(0);
+                leftFrontDrive.setPower(0);
                 rightBackDrive.setPower(0);
+                rightFrontDrive.setPower(0);
             }
 
             telemetry.addData("Target Power", power);

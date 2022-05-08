@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.colorsensor;
+package org.firstinspires.ftc.teamcode.objects;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -56,9 +56,9 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @TeleOp(name = "Sensor: MR Color", group = "Sensor")
-public class SensorMRColor extends LinearOpMode {
+public class SensorColor extends LinearOpMode {
 
-  ColorSensor colorSensor;    // Hardware Device Object
+  com.qualcomm.robotcore.hardware.ColorSensor colorSensor;    // Hardware Device Object
 
   @Override
   public void runOpMode() {

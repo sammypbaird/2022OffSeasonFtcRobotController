@@ -1,15 +1,14 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.sandbox.chinmay;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Sam's Driver", group="Linear Opmode")
-@Disabled
-public class SamsDriverOp extends LinearOpMode  {
+//0. Name the TeleOp
+@TeleOp(name="Chinmay's Driver", group="")
+public class ChinmayGamePadExerciseOp extends LinearOpMode  {
 
     //adding a comment
     private ElapsedTime runtime = new ElapsedTime();
@@ -43,64 +42,69 @@ public class SamsDriverOp extends LinearOpMode  {
         // run until the end of the match (driver presses STOP)
         double power = 0;
         while (opModeIsActive()) {
+            power = 0.5;
 
-            //turn on turbo mode while "A" button is pressed
-            if (gamepad1.a)
-                power=1;
-            else
-                power=0.5;
-
-            //zero point rotation if right joystick is engaged left or right
-            if (gamepad1.right_stick_x > 0.5)
-            {
-                leftBackDrive.setPower(-power);
-                leftFrontDrive.setPower(-power);
-                rightBackDrive.setPower(power);
-                rightFrontDrive.setPower(power);
-            }
-            else if (gamepad1.right_stick_x < -0.5) {
-                leftBackDrive.setPower(power);
-                leftFrontDrive.setPower(power);
-                rightBackDrive.setPower(-power);
-                rightFrontDrive.setPower(-power);
+            //8. when "A" button is pressed, turn on turbo mode (power is max)
+            //gamepad1.a
+            if(gamepad1.a){
+                power = 1;
+            }else{
+                power = 0;
             }
 
-            //move or strafe if dpad is engaged
-            if (gamepad1.dpad_up) {
+            //9. when "A" button is not pressed, set power to 0.5
+            //gamepad1.a
+
+            //6. if right joystick is engaged right, do zero point turn right
+            //gamepad1.right_stick_x
+
+            //7. if right joystick is engaged left, do zero point turn left
+            //gamepad1.right_stick_x
+
+            //1. if dpad "UP" is pressed, go forward
+            //gamepad1.dpad_up
+            if(gamepad1.dpad_up){
+                power = 0.5;
                 leftBackDrive.setPower(power);
                 leftFrontDrive.setPower(power);
                 rightBackDrive.setPower(power);
                 rightFrontDrive.setPower(power);
+            }else{
+                power = 0;
             }
-            else if (gamepad1.dpad_down) {
+
+            //2. else if dpad "DOWN" is pressed, go backwards
+            //gamepad1.dpad_down
+            if(gamepad1.dpad_down){
+                power = 0.5;
                 leftBackDrive.setPower(-power);
                 leftFrontDrive.setPower(-power);
                 rightBackDrive.setPower(-power);
                 rightFrontDrive.setPower(-power);
+            }else{
+                power = 0;
             }
-            else if (gamepad1.dpad_left) {
-                leftBackDrive.setPower(power);
-                leftFrontDrive.setPower(-power);
-                rightBackDrive.setPower(-power);
-                rightFrontDrive.setPower(power);
+            //3. else if dpad "LEFT" is pressed, strafe left
+            //gamepad1.dpad_left
+            if(gamepad1.dpad_left){
+                    power = 0.5;
+                    leftBackDrive.setPower(-power);
+                    leftFrontDrive.setPower(power);
+                    rightBackDrive.setPower(power);
+                    rightFrontDrive.setPower(-power);
+            }else{
+                power = 0;
             }
-            else if (gamepad1.dpad_right) {
-                leftBackDrive.setPower(-power);
-                leftFrontDrive.setPower(power);
-                rightBackDrive.setPower(power);
-                rightFrontDrive.setPower(-power);
-            }
-            else
-            {
-                leftBackDrive.setPower(0);
-                leftFrontDrive.setPower(0);
-                rightBackDrive.setPower(0);
-                rightFrontDrive.setPower(0);
-            }
+            //4. else if dpad "RIGHT" is pressed, strafe right
+            //gamepad1.dpad_left
+            
+            //5. otherwise, set power on all motors to zero
+
 
             telemetry.addData("Target Power", power);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
+
             telemetry.update();
-        }
+        }//required
     }
 }

@@ -1,16 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.sandbox.chinmay;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.objects.Driver;
-import org.firstinspires.ftc.teamcode.objects.control;
-import org.firstinspires.ftc.teamcode.objects.chinmaydriver;
-
 @TeleOp(name="Test Control Op", group="Linear Opmode")
 /*
-Test of org.firstinspires.ftc.teamcode.objects.control
+Test of org.firstinspires.ftc.teamcode.sandbox.chinmay.control
  */
 public class TestControlOp extends LinearOpMode {
 
