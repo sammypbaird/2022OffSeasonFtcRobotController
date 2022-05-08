@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.objects.Driver;
 
-@TeleOp(name="Test Driver Op", group="Linear Opmode")
+@Autonomous(name="Test Driver Op", group="")
 public class TestDriverOp extends LinearOpMode {
 
     private Driver driver = null;
@@ -28,9 +27,15 @@ public class TestDriverOp extends LinearOpMode {
         runtime.reset();
 
         // run until the end of the match (driver presses STOP)
-        driver.rotateLeft(2000);
-        driver.rotateRight(2000);
-        driver.driveForwardForDurationMs(2000);
+        driver.driveForward(1000);
+        driver.strafeRight(1000);
+        driver.driveBackwards(1000);
+        driver.strafeLeft(1000);
+
+        for (int i=0;i<10;i++) {
+            driver.rotateRight(500);
+            driver.driveForward(500);
+        }
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
