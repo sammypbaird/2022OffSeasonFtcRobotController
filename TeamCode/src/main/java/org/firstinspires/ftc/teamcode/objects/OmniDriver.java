@@ -17,14 +17,14 @@ public class OmniDriver {
 
     public OmniDriver(HardwareMap hardwareMap)
     {
-        // 2. Initialize the DcMotors by looking them up in the hardwareMap
+        // Initialize the DcMotors by looking them up in the hardwareMap
 
 
-        // 3. Set the motor directions (reverse the left motors)
+        // Set the motor directions (reverse the left motors)
     }
 
     /**
-     * Sets the speed of the driver
+     * Sets the speed of the driver.
      * @param speed Must be between 0 and 1
      */
     public void setSpeed(double speed)
