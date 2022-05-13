@@ -8,18 +8,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.objects.Driver;
 import org.firstinspires.ftc.teamcode.objects.OmniDriver;
+import org.firstinspires.ftc.teamcode.sandbox.megan.MegansOmniDriver;
 
 @Autonomous(name="Test Driver Op", group="")
 public class TestDriverOp extends LinearOpMode {
 
-    private OmniDriver driver = null;
+    private MegansOmniDriver driver = null;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
 
-        driver = new OmniDriver(hardwareMap);
-        driver.setSpeed(0.5);
+        driver = new MegansOmniDriver(hardwareMap);
+        driver.setSpeed(gamepad1.right_stick_y);
+
 
         // Wait for the game to start (driver presses PLAY)
         telemetry.addData("Status", "Initialized");
