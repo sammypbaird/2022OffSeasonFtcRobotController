@@ -19,7 +19,7 @@ public class MegansOmniDriver {
     private DcMotor rightBackDrive = null;
 
     //store the speed
-    private double speed = 0;
+    private double speed = 0.5;
 
 
     public MegansOmniDriver(HardwareMap hardwareMap)
@@ -52,12 +52,8 @@ public class MegansOmniDriver {
      */
     public void stop()
     {
-       //set the speed to zero
-       speed = 0;
-
         //stop the motors by calling "setDirection"
         setDirection(0,0,0);
-
     }
 
     /**
@@ -154,8 +150,10 @@ public class MegansOmniDriver {
     private void waitMs(long milliseconds)
     {
         //wait until milliseconds
-        long start = System.currentTimeMillis();
-        while (System.currentTimeMillis() < start + milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

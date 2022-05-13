@@ -20,7 +20,7 @@ public class TestDriverOp extends LinearOpMode {
     public void runOpMode() {
 
         driver = new MegansOmniDriver(hardwareMap);
-        driver.setSpeed(gamepad1.right_stick_y);
+        driver.setSpeed(0.5);
 
 
         // Wait for the game to start (driver presses PLAY)
