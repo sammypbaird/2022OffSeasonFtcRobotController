@@ -29,18 +29,12 @@
 
 package org.firstinspires.ftc.teamcode.objects;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.os.Build;
-import android.view.View;
-
-import androidx.annotation.RequiresApi;
-
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+
+import org.firstinspires.ftc.teamcode.sandbox.sam.SamsOmniDriver;
 
 /*
  *
@@ -55,98 +49,58 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@TeleOp(name = "Sensor: MR Color", group = "Sensor")
+@Autonomous(name = "Line follower", group = "Sensor")
 public class SensorColor extends LinearOpMode {
 
-  com.qualcomm.robotcore.hardware.ColorSensor colorSensor;    // Hardware Device Object
+    SamsOmniDriver driver;
+    ColorSensor colorSensor;    // Hardware Device Object
+    int darkestAlpha = Integer.MAX_VALUE; //dark colors have lower values
+    int lightestAlpha = 0; //light colors have higher values
+    int idealAlpha; //for a line follower, the idea color is a gray color (in between black and white)
 
-  @Override
-  public void runOpMode() {
+    @Override
+    public void runOpMode() {
 
-    int maxRed = 0;
-    int maxGreen = 0;
-    int maxBlue = 0;
+        driver = new SamsOmniDriver(hardwareMap);
+        driver.setSpeed(0.25);
 
-    // hsvValues is an array that will hold the hue, saturation, and value information.
-    float hsvValues[] = {0F,0F,0F};
+        // get a reference to our ColorSensor object.
+        colorSensor = hardwareMap.colorSensor.get("sensor_color");
 
-    // values is a reference to the hsvValues array.
-    final float values[] = hsvValues;
+        // Set the LED in the beginning
+        colorSensor.enableLed(true);
 
-    // get a reference to the RelativeLayout so we can change the background
-    // color of the Robot Controller app to match the hue detected by the RGB sensor.
-    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+        // wait for the start button to be pressed.
+        while (!isStarted())
+        {
+            int alpha = colorSensor.alpha();
+            if (alpha < darkestAlpha)
+                darkestAlpha = alpha;
+            if (alpha > lightestAlpha)
+                lightestAlpha = alpha;
 
-    // bPrevState and bCurrState represent the previous and current state of the button.
-    boolean bPrevState = false;
-    boolean bCurrState = false;
-
-    // bLedOn represents the state of the LED.
-    boolean bLedOn = true;
-
-    // get a reference to our ColorSensor object.
-    colorSensor = hardwareMap.colorSensor.get("sensor_color");
-
-    // Set the LED in the beginning
-    colorSensor.enableLed(bLedOn);
-
-    // wait for the start button to be pressed.
-    waitForStart();
-
-    // while the op mode is active, loop and read the RGB data.
-    // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
-    while (opModeIsActive()) {
-
-      // check the status of the x button on either gamepad.
-      bCurrState = gamepad1.x;
-
-      // check for button state transitions.
-      if (bCurrState && (bCurrState != bPrevState))  {
-
-        // button is transitioning to a pressed state. So Toggle LED
-        bLedOn = !bLedOn;
-        colorSensor.enableLed(bLedOn);
-      }
-
-      // update previous state variable.
-      bPrevState = bCurrState;
-
-      if (colorSensor.red() > maxRed)
-        maxRed = colorSensor.red();
-      if (colorSensor.blue() > maxBlue)
-        maxBlue = colorSensor.blue();
-      if (colorSensor.green() > maxGreen)
-        maxGreen = colorSensor.green();
-
-      // convert the RGB values to HSV values.
-      Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
-
-      // send the info back to driver station using telemetry function.
-      telemetry.addData("LED", bLedOn ? "On" : "Off");
-      telemetry.addData("Clear", colorSensor.alpha());
-      telemetry.addData("Red  ", colorSensor.red() / (float)maxRed);
-      telemetry.addData("Green", colorSensor.green() / (float)maxGreen);
-      telemetry.addData("Blue ", colorSensor.blue() / (float)maxBlue);
-      telemetry.addData("Hue", hsvValues[0]);
-
-      // change the background color to match the color detected by the RGB sensor.
-      // pass a reference to the hue, saturation, and value array as an argument
-      // to the HSVToColor method.
-      relativeLayout.post(new Runnable() {
-        public void run() {
-          relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+            telemetry.addData("Alpha", colorSensor.alpha());
+            telemetry.addData("Darkest Alpha", darkestAlpha);
+            telemetry.addData("Lightest Alpha", lightestAlpha);
+            telemetry.update();
         }
-      });
 
-      telemetry.update();
+        //ideal alpha is the value right between the lightest and darkest alpha
+        idealAlpha = (lightestAlpha - darkestAlpha) / 2;
+
+        // while the op mode is active, loop and read the RGB data.
+        // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
+        while (opModeIsActive()) {
+
+            double correction = (idealAlpha - colorSensor.alpha()) / (double)(lightestAlpha - darkestAlpha);
+            driver.setDirection(1.0,0, -2 * correction);
+
+            telemetry.addData("Alpha", colorSensor.alpha());
+            telemetry.addData("Min", darkestAlpha);
+            telemetry.addData("Max", lightestAlpha);
+            telemetry.addData("Correction", correction);
+
+            telemetry.update();
+        }
     }
-
-    // Set the panel back to the default color
-    relativeLayout.post(new Runnable() {
-      public void run() {
-        relativeLayout.setBackgroundColor(Color.WHITE);
-      }
-    });
-  }
 }

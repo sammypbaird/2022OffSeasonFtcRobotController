@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.objects;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -12,24 +13,28 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class OmniDriver {
 
     //store the DcMotors as class variables
-
+    private DcMotor leftFrontDrive = null;
+    private DcMotor leftBackDrive = null;
+    private DcMotor rightFrontDrive = null;
+    private DcMotor rightBackDrive = null;
+    private SpeedRetriever speedRetriever;
     //store the speed
 
-    public OmniDriver(HardwareMap hardwareMap)
+    public OmniDriver(HardwareMap hardwareMap, SpeedRetriever speedRetriever)
     {
-        // Initialize the DcMotors by looking them up in the hardwareMap
+        this.speedRetriever = speedRetriever;
 
+        // Initialize the DcMotors by looking them up in the hardwareMap
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
+        leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
 
         // Set the motor directions (reverse the left motors)
-    }
-
-    /**
-     * Sets the speed of the driver.
-     * @param speed Must be between 0 and 1
-     */
-    public void setSpeed(double speed)
-    {
-        //assign the class variable
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
     }
 
     /**
@@ -37,9 +42,8 @@ public class OmniDriver {
      */
     public void stop()
     {
-        //set the speed to zero
-
         //stop the motors by calling "setDirection"
+        setDirection(0,0,0);
     }
 
     /**
@@ -52,47 +56,96 @@ public class OmniDriver {
     public void setDirection(double axial, double lateral, double yaw)
     {
         //calculate the power to each motor
+        // Combine the joystick requests for each axis-motion to determine each wheel's power.
+        // Set up a variable for each drive wheel to save the power level for telemetry.
+        double leftFrontPower  = axial + lateral + yaw;
+        double rightFrontPower = axial - lateral - yaw;
+        double leftBackPower   = axial - lateral + yaw;
+        double rightBackPower  = axial + lateral - yaw;
+
+        double max = getMaxValue(leftBackPower,leftFrontPower,rightBackPower,rightFrontPower);
 
         //normalize the values
+        if (max > 1.0) {
+            leftFrontPower  /= max;
+            rightFrontPower /= max;
+            leftBackPower   /= max;
+            rightBackPower  /= max;
+        }
 
         //multiple the values by the speed
+        double speed = speedRetriever.getSpeed();
+        leftBackPower*=speed;
+        leftFrontPower*=speed;
+        rightBackPower*=speed;
+        rightFrontPower*=speed;
 
-        //set the power to each motor
+        //set the power to each motor\
+        // Send calculated power to wheels
+        leftFrontDrive.setPower(leftFrontPower);
+        rightFrontDrive.setPower(rightFrontPower);
+        leftBackDrive.setPower(leftBackPower);
+        rightBackDrive.setPower(rightBackPower);
     }
+
+    private double getMaxValue(double lb,double lf,double rb,double rf){
+        double max;
+        max = Math.max(Math.abs(lf), Math.abs(rf));
+        max = Math.max(max, Math.abs(lb));
+        max = Math.max(max, Math.abs(rb));
+        return max;
+    };
 
     public void forward(long milliseconds)
     {
         //use "setDirection" and "waitMs" to accomplish this
+        setDirection(1, 0, 0);
+        waitMs(milliseconds);
     }
 
     public void backward(long milliseconds)
     {
         //use "setDirection" and "waitMs" to accomplish this
+        setDirection(-1, 0, 0);
+        waitMs(milliseconds);
     }
 
     public void strafeLeft(long milliseconds)
     {
         //use "setDirection" and "waitMs" to accomplish this
+        setDirection(0,-1,0);
+        waitMs(milliseconds);
     }
 
     public void strafeRight(long milliseconds)
     {
         //use "setDirection" and "waitMs" to accomplish this
+        setDirection(0,1,0);
+        waitMs(milliseconds);
     }
 
     public void rotateLeft(long milliseconds)
     {
         //use "setDirection" and "waitMs" to accomplish this
+        setDirection(0,0,-1);
+        waitMs(milliseconds);
     }
 
     public void rotateRight(long milliseconds)
     {
         //use "setDirection" and "waitMs" to accomplish this
+        setDirection(0,0,1);
+        waitMs(milliseconds);
     }
 
     private void waitMs(long milliseconds)
     {
         //wait until milliseconds
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

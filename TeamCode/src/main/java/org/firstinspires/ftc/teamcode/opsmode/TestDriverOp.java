@@ -7,9 +7,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.objects.Driver;
+import org.firstinspires.ftc.teamcode.objects.GamePadSpeedRetriever;
 import org.firstinspires.ftc.teamcode.objects.OmniDriver;
 
-@Autonomous(name="Test Driver Op", group="")
+@Autonomous(name="Why is this not working", group="")
 public class TestDriverOp extends LinearOpMode {
 
     private OmniDriver driver = null;
@@ -18,8 +19,8 @@ public class TestDriverOp extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        driver = new OmniDriver(hardwareMap);
-        driver.setSpeed(0.5);
+        GamePadSpeedRetriever gamePadSpeedRetriever = new GamePadSpeedRetriever(gamepad1);
+        driver = new OmniDriver(hardwareMap, gamePadSpeedRetriever);
 
         // Wait for the game to start (driver presses PLAY)
         telemetry.addData("Status", "Initialized");
@@ -30,9 +31,9 @@ public class TestDriverOp extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         driver.forward(1000);
-        driver.strafeRight(1000);
         driver.backward(1000);
         driver.strafeLeft(1000);
+        driver.strafeRight(1000);
 
         for (int i=0;i<10;i++) {
             driver.rotateRight(500);
