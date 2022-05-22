@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode.opsmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.objects.Driver;
-import org.firstinspires.ftc.teamcode.objects.GamePadSpeedRetriever;
-import org.firstinspires.ftc.teamcode.objects.OmniDriver;
-import org.firstinspires.ftc.teamcode.sandbox.megan.MegansOmniDriver;
+import org.firstinspires.ftc.teamcode.roadrunner.objects.GamePadSpeedRetriever;
+import org.firstinspires.ftc.teamcode.roadrunner.objects.OmniDriver;
 
 @Autonomous(name="Test Omni Op", group="")
 public class TestOmniOp extends LinearOpMode {
