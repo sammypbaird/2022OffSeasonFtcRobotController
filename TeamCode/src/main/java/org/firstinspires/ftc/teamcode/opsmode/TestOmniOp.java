@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.objects.GamePadSpeedRetriever;
 import org.firstinspires.ftc.teamcode.objects.OmniDriver;
 import org.firstinspires.ftc.teamcode.sandbox.megan.MegansOmniDriver;
 
-@Autonomous(name="Why is this not working", group="")
-public class TestDriverOp extends LinearOpMode {
+@Autonomous(name="Test Omni Op", group="")
+public class TestOmniOp extends LinearOpMode {
 
     private OmniDriver driver = null;
     private ElapsedTime runtime = new ElapsedTime();
