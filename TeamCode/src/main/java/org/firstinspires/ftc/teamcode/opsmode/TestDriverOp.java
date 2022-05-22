@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.objects.Driver;
 import org.firstinspires.ftc.teamcode.objects.GamePadSpeedRetriever;
 import org.firstinspires.ftc.teamcode.objects.OmniDriver;
+import org.firstinspires.ftc.teamcode.sandbox.megan.MegansOmniDriver;
 
 @Autonomous(name="Why is this not working", group="")
 public class TestDriverOp extends LinearOpMode {
@@ -21,6 +22,7 @@ public class TestDriverOp extends LinearOpMode {
 
         GamePadSpeedRetriever gamePadSpeedRetriever = new GamePadSpeedRetriever(gamepad1);
         driver = new OmniDriver(hardwareMap, gamePadSpeedRetriever);
+
 
         // Wait for the game to start (driver presses PLAY)
         telemetry.addData("Status", "Initialized");
