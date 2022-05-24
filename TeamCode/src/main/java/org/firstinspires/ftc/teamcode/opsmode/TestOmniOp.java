@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.roadrunner.objects.GamePadSpeedRetriever;
-import org.firstinspires.ftc.teamcode.roadrunner.objects.OmniDriver;
+import org.firstinspires.ftc.teamcode.objects.GamePadSpeedRetriever;
+import org.firstinspires.ftc.teamcode.objects.OmniDriver;
 
 @Autonomous(name="Test Omni Op", group="")
 public class TestOmniOp extends LinearOpMode {
