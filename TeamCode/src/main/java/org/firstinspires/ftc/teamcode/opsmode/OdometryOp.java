@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.roadrunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.roadrunner.trajectorysequence.TrajectorySequence;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +28,22 @@ public class OdometryOp extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        List<Trajectory> trajectoryList = new ArrayList<>();
-        trajectoryList.add(drive.trajectoryBuilder(new Pose2d()).lineTo(new Vector2d(20, 0)).build());
-        trajectoryList.add(drive.trajectoryBuilder(getEndPose(trajectoryList)).lineTo(new Vector2d(20, 20)).build());
-        trajectoryList.add(drive.trajectoryBuilder(getEndPose(trajectoryList)).lineTo(new Vector2d(0, 20)).build());
-        trajectoryList.add(drive.trajectoryBuilder(getEndPose(trajectoryList)).lineTo(new Vector2d(0, 0)).build());
-
+        TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(0,0))
+                .forward(60)
+                .turn(Math.toRadians(90))
+                .forward(60)
+                .turn(Math.toRadians(90))
+                .forward(60)
+                .turn(Math.toRadians(90))
+                .forward(60)
+                .turn(Math.toRadians(90))
+                .build();
+        
         waitForStart();
 
         if (isStopRequested()) return;
 
-        for (Trajectory trajectory : trajectoryList) {
-            drive.followTrajectory(trajectory);
-        }
+        drive.followTrajectorySequence(trajSeq);
 
         Pose2d poseEstimate = drive.getPoseEstimate();
         telemetry.addData("finalX", poseEstimate.getX());
