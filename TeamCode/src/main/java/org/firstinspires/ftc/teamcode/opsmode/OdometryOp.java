@@ -28,17 +28,17 @@ public class OdometryOp extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(0,0))
-                .forward(60)
-                .turn(Math.toRadians(90))
-                .forward(60)
-                .turn(Math.toRadians(90))
-                .forward(60)
-                .turn(Math.toRadians(90))
-                .forward(60)
-                .turn(Math.toRadians(90))
+        TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d(0, 0, Math.toRadians(90)))
+                .forward(50)
+                .turn(Math.toRadians(-90))
+                .splineTo(new Vector2d(20, 40), Math.toRadians(-90))
+                .splineTo(new Vector2d(00, 30), Math.toRadians(-180))
+                .turn(Math.toRadians(180))
+                .splineTo(new Vector2d(25, 15), Math.toRadians(-90))
+                .splineTo(new Vector2d(00, 0), Math.toRadians(-180))
+                .turn(Math.toRadians(-90))
                 .build();
-        
+
         waitForStart();
 
         if (isStopRequested()) return;
