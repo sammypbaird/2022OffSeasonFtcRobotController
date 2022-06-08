@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.roadrunner.drive;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
-// =================== This file was generated via https://learnroadrunner.com/drive-constants.html =================
-
 /*
  * Constants shared between multiple drive types.
  *

@@ -33,7 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.teamcode.sandbox.sam.SamsOmniDriver;
+//import org.firstinspires.ftc.teamcode.sandbox.sam.SamsOmniDriver;
 
 /*
  *
@@ -51,7 +51,7 @@ import org.firstinspires.ftc.teamcode.sandbox.sam.SamsOmniDriver;
 @Autonomous(name = "Line follower", group = "Sensor")
 public class SensorColor extends LinearOpMode {
 
-    SamsOmniDriver driver;
+//    SamsOmniDriver driver;
     ColorSensor colorSensor;    // Hardware Device Object
     int darkestAlpha = Integer.MAX_VALUE; //dark colors have lower values
     int lightestAlpha = 0; //light colors have higher values
@@ -60,8 +60,8 @@ public class SensorColor extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        driver = new SamsOmniDriver(hardwareMap);
-        driver.setSpeed(0.25);
+//        driver = new SamsOmniDriver(hardwareMap);
+//        driver.setSpeed(0.25);
 
         // get a reference to our ColorSensor object.
         colorSensor = hardwareMap.colorSensor.get("sensor_color");
@@ -92,7 +92,7 @@ public class SensorColor extends LinearOpMode {
         while (opModeIsActive()) {
 
             double correction = (idealAlpha - colorSensor.alpha()) / (double)(lightestAlpha - darkestAlpha);
-            driver.setDirection(1.0,0, -2 * correction);
+//            driver.setDirection(1.0,0, -2 * correction);
 
             telemetry.addData("Alpha", colorSensor.alpha());
             telemetry.addData("Min", darkestAlpha);
