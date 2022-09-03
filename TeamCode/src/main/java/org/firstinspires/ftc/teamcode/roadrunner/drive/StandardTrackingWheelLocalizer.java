@@ -29,15 +29,17 @@ import java.util.List;
  */
 @Config
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
-    public static double TICKS_PER_REV = 360; // https://cdn.usdigital.com/assets/datasheets/e8t_datasheet.pdf
-    public static double WHEEL_RADIUS = 0.6885827; // ??? inches
+
+    public static double TICKS_PER_REV = 360; // ??? https://cdn.usdigital.com/assets/datasheets/e8t_datasheet.pdf
+    public static double WHEEL_RADIUS = 0.68858227; // ??? inches
+
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
     public static double LATERAL_DISTANCE = 13.5; // in; distance between the left and right wheels
     public static double FORWARD_OFFSET = -2.5; // in; offset of the lateral wheel
 
-    private static double X_MULTIPLIER = 0.27156; //multipler in the X direction
-    private static double Y_MULTIPLIER = 3.5; //WAY unreliable - multiplier in the Y direction
+    private static double X_MULTIPLIER = 1; //multipler in the X direction
+    private static double Y_MULTIPLIER = 1; //multiplier in the Y direction
 
     private Encoder leftEncoder, rightEncoder, frontEncoder;
 
